@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "bulma": "^0.9.4",
-    "vue": "^3.3.4",
+    "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.69.5",
-    "vite": "^4.4.5"
+    "vite": "^4.5.1"
   }
 }
