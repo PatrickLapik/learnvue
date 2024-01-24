@@ -7,6 +7,11 @@
                 </button>
             </p>
             <p class="control">
+                <button class="button is-static has-text-dark">
+                    <span>{{ page }}/{{ info.pages }}</span>
+                </button>
+            </p>
+            <p class="control">
                 <button :disabled="!info.next" class="button" @click="next()">
                     <span>Next</span>
                 </button>
@@ -26,20 +31,25 @@ import CharacterCard from '../components/CharacterCard.vue';
 
 let info = ref({});
 let chars = ref([]);
+let page = ref(1);
 
-getCharacters('https://rickandmortyapi.com/api/character')
+getCharacters(page.value);
 
-async function getCharacters(url) {
-    let response = await axios.get(url);
+async function getCharacters(page) {
+    let response = await axios.get('https://rickandmortyapi.com/api/character', {
+        params: {
+            page
+        }
+    });
     console.log(response.data);
     info.value = response.data.info;
     chars.value = response.data.results;
 }
 
 async function next() {
-    getCharacters(info.value.next);
+    getCharacters(++page.value);
 };
 async function prev() {
-    getCharacters(info.value.prev);
+    getCharacters(--page.value);
 };
 </script>
