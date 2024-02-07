@@ -7,37 +7,40 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import CanvasBox from '../components/CanvasBox.vue'
-let mycanvas = ref(null)
-let radius = ref(50)
-let ctx = ref(null)
-let x = ref(10)
-let y = ref(10)
-onMounted(() => {
-    console.log(mycanvas)
-    ctx.value = mycanvas.value.getContext("2d");
+import { onMounted, ref } from 'vue';
+import CanvasBox from '../components/CanvasBox.vue';
+let mycanvas = ref(null);
+let radius = ref(50);
+let ctx = ref(null);
+let x = ref(10);
+let y = ref(10);
+onMounted(()=> {
+    console.log(mycanvas);
+    ctx.value = mycanvas.value.getContext('2d');
     ctx.value.beginPath();
     ctx.value.arc(400, 300, radius.value, 0, 2 * Math.PI);
     ctx.value.stroke();
-})
-
+});
 function draw() {
-    ctx.value.reset()
+    ctx.value.reset();
     ctx.value.beginPath();
     ctx.value.arc(400, 300, radius.value, 0, 2 * Math.PI);
     ctx.value.stroke();
 }
 
-function hover(event) {
-    console.log(event)
-    x.value = event.pageX - event.currentTarget.offsetLeft
-    y.value = event.pageY - event.currentTarget.offsetTop
+function hover(event){
+    console.log(event);
+    x.value=event.offsetX; 
+    y.value=event.offsetY;
+    console.log(x.value, y.value);
 }
 </script>
 
 <style scoped>
-canvas {
-    border: 1px solid black;
-}
+    canvas {
+        border: 1px solid black;
+    }
+    input {
+        width: 100%;
+    }
 </style>
