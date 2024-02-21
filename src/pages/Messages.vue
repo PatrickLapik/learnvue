@@ -1,4 +1,4 @@
-<script setup>
+z<script setup>
 import { ref } from 'vue';
 import Message from '../components/Message.vue';
 
