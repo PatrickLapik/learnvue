@@ -1,45 +1,106 @@
-import readline from "node:readline";
+import inquirer from 'inquirer';
 
-readline.emitKeypressEvents(process.stdin);
-console.clear();
-
-write('@');
-
-process.stdin.on("keypress", (ch, key) => {
-  // console.log('got "keypress"', ch, key);
-  if (key && key.ctrl && key.name == "c") {
-    process.stdin.pause();
-  }
-
-  if (key && key.name == "w") {
-    write('\x1B[1D');
-    write(' ');
-    write('\x1B[1D');
-    write('\x1B[1A');
-    write('@');
-  }
-  if (key && key.name == "s") {
-    write('\x1B[1D');
-    write(' ');
-    write('\x1B[1D');
-    write('\x1B[1B');
-    write('@');
-  }
-  if (key && key.name == "a") {
-    write('\x1B[1D');
-    write(' ');
-    write('\x1B[2D');
-    write('@');
-  }
-  if (key && key.name == "d") {
-    write('\x1B[1D');
-    write(' ');
-    write('@');
-  }
-});
-
-process.stdin.setRawMode(true);
-
-function write(text) {
-  process.stdout.write(text);
-}
+inquirer
+  .prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Mis su nimi on?',
+    },
+    {
+      type: 'number',
+      name: 'age',
+      message: 'Kui vana sa oled?',
+    },
+    {
+      type: 'confirm',
+      name: 'canProceed',
+      message: 'Oled valmis jätkama?',
+      default: true,
+    },
+    {
+      type: 'list',
+      name: 'theme',
+      message: 'Vali üks teema.',
+      choices: ['dark', 'light', 'colorful'],
+    },
+    {
+      type: 'rawlist',
+      name: 'beverage',
+      message: 'Vali üks jook.',
+      choices: ['Coffee', 'Tea', 'Water'],
+    },
+    {
+      type: 'expand',
+      name: 'fruit',
+      message: 'Vali üks puuvili.',
+      choices: [
+        {
+          key: 'a',
+          name: 'Apple',
+          value: 'apple',
+        },
+        {
+          key: 'o',
+          name: 'Orange',
+          value: 'orange',
+        },
+        {
+          key: 'p',
+          name: 'Pear',
+          value: 'pear',
+        },
+      ],
+    },
+    {
+      type: 'checkbox',
+      message: 'Vali või ära vali ühtegi (mul poh) toppingut enda pitsale.',
+      name: 'toppings',
+      choices: [
+        new inquirer.Separator(' -----The Meats---- '),
+        {
+          name: 'Pepperoni',
+          value: 'pepperoni',
+        },
+        {
+          name: 'Ham',
+          value: 'ham',
+        },
+        {
+          name: 'Ground Meat',
+          value: 'groundMeat',
+        },
+        {
+          name: 'Bacon',
+          value: 'bacon',
+        },
+        new inquirer.Separator(' ----The Cheeses---- '),
+        {
+          name: 'Mozzarella',
+          value: 'mozzarella',
+        },
+        {
+          name: 'Cheddar',
+          value: 'cheddar',
+        },
+        {
+          name: 'Parmesan',
+          value: 'parmesan',
+        },
+      ],
+    },
+    {
+      type: 'password',
+      message: 'Sisesta oma parool.',
+      name: 'password',
+    },
+    {
+      type: 'editor',
+      name: 'bio',
+      value: 'bio',
+      message: 'Kirjuta midagi enda kohta.',
+    },
+  ])
+  .then((answers) => {
+    console.log(answers);
+  });
