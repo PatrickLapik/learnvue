@@ -8,11 +8,11 @@ if(!fs.existsSync('cache')){
 }
 
 let baseUrl = "https://www.gocomics.com/";
-let link = "garfield/2024/03/18"
+let link = "/garfield/2024/03/18"
 
 
 for(let i = 1; i<10; i++){
-    let cacheName = link.split("/").join("-");
+    let cacheName = link;
     let cacheFile = `cache/${cacheName}.html`;
     let data;
     if(!fs.existsSync(cacheFile)){
